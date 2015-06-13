@@ -4,7 +4,7 @@
   "description": "Massively Multiplayer Multicast Timecat: Battle Edition",
   "main": "timecat-mmo.js",
   "scripts": {
-    "test": "mocha -R spec"
+    "start": "electron timecat-mmo.js 2>&1 | silence-chromium"
   },
   "keywords": [
     "timecat",
@@ -13,8 +13,13 @@
   "author": "Beau Gunderson <beau@beaugunderson.com>",
   "license": "MIT",
   "dependencies": {
+    "cat-names": "^1.0.2",
+    "debug": "^2.2.0",
     "electron-prebuilt": "^0.27.3",
-    "mdns-swarm": "^5.1.0"
+    "jquery": "^2.1.4",
+    "lodash": "^3.9.3",
+    "mdns-swarm": "^5.1.0",
+    "silence-chromium": "^2.0.0"
   },
   "devDependencies": {}
 }
