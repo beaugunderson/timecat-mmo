@@ -15,5 +15,6 @@
   "dependencies": {
     "blessed": "^0.1.60",
     "mdns-swarm": "^5.1.0"
-  }
+  },
+  "devDependencies": {}
 }
