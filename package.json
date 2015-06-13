@@ -13,7 +13,7 @@
   "author": "Beau Gunderson <beau@beaugunderson.com>",
   "license": "MIT",
   "dependencies": {
-    "blessed": "^0.1.60",
+    "electron-prebuilt": "^0.27.3",
     "mdns-swarm": "^5.1.0"
   },
   "devDependencies": {}
