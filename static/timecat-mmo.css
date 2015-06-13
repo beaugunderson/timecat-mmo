@@ -41,6 +41,16 @@ div {
   padding: 5px;
 }
 
+#event div, #event pre {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 #game {
   position: absolute;
   left: 0px;
@@ -66,4 +76,37 @@ div {
   top: 20%;
   height: 80%;
   width: 35%;
+}
+
+#event {
+  position: absolute;
+  z-index: 1000;
+  left: 25%;
+  top: 25%;
+  height: 35%;
+  width: 50%;
+  display: none;
+  background-color: #333;
+  border: 3px double gray;
+  padding: 10px;
+}
+
+#result {
+  display: none;
+}
+
+@keyframes blink {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+.cursor {
+  animation: blink 1s step-start 0s infinite;
+  height: 0.7em;
+  width: 0.5em;
+  background-color: white;
+  display: inline-block;
+  margin-left: 2px;
+  margin-bottom: -1px;
 }

@@ -21,6 +21,25 @@
       <ul id="quest-lines"></ul>
     </div>
 
+    <div id="event">
+      <p>
+        Prepare to battle!
+      </p>
+
+      <div>
+        $ time cat<span id="first-cursor" class="cursor"></span>
+      </div>
+
+      <div id="result">
+        <pre>^C
+real    <span id="result-time">0m2.239s</span>
+user    <span>0m0.001s</span>
+sys     <span>0m0.002s</span></pre>
+
+$ <span id="second-cursor" class="cursor"></span>
+      </div>
+    </div>
+
     <script>
       require('./timecat-mmo.js');
     </script>
