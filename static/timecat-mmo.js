@@ -3,6 +3,7 @@
 'use strict';
 
 var breeds = require('./cat-breeds.js');
+var endOfStream = require('end-of-stream');
 var names = require('cat-names');
 var ndjson = require('ndjson');
 var process = require('process');
@@ -14,10 +15,18 @@ var _ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 
+var KEY_C = 67;
+var KEY_D = 68;
+var KEY_ENTER = 13;
+var KEY_F = 70;
+var KEY_R = 82;
+
+var currentEnemy;
 var name = names.random();
+var outStream = ndjson.stringify();
 var peerUuid = uuid.v1();
 var seen = {};
-var outStream = ndjson.stringify();
+var start;
 
 // Prevent pinch zoom
 document.addEventListener('mousewheel', function (e) {
@@ -47,9 +56,7 @@ function enemy() {
   };
 }
 
-var currentEnemy;
-
-function next() {
+function nextEvent() {
   currentEnemy = enemy();
 
   $('#game-lines').html('<li>You happen upon a ' + currentEnemy.breed +
@@ -57,53 +64,49 @@ function next() {
     '<strong>(R)</strong>un?</li>');
 }
 
-var start;
-
 document.addEventListener('keydown', function (e) {
   // e.preventDefault();
 
-  // 'F'
-  if (e.keyCode === 70) {
+  if (e.keyCode === KEY_F) {
     fightCat();
   }
 
-  // 'R'
-  if (e.keyCode === 82) {
+  if (e.keyCode === KEY_R) {
     fleeCat();
   }
 
-  // Enter
-  if (e.keyCode === 13) {
+  if (e.keyCode === KEY_ENTER) {
     $('#first-cursor').hide();
+
     start = process.hrtime();
   }
 
-  // Ctrl-C
-  if (e.ctrlKey && e.keyCode === 67) {
-    var diff = process.hrtime(start);
-    $('#result-time').text('0m' + diff[0] + '.' +
-      Math.floor(diff[1] / 1000000) + 's');
-    $('#result').show();
+  if (e.ctrlKey) {
+    if (e.keyCode === KEY_C) {
+      var diff = process.hrtime(start);
+
+      $('#result-time').text('0m' + diff[0] + '.' +
+        Math.floor(diff[1] / 1000000) + 's');
+
+      $('#result').show();
+    }
+
+    if (e.keyCode === KEY_D) {
+      $('#event').hide();
+
+      $('#quest-lines').append('<li>You beat ' + currentEnemy.name +
+        ', a ' + currentEnemy.breed + '.</li>');
+
+      outStream.write({
+        uuid: uuid.v1(),
+        type: 'event',
+        enemy: currentEnemy,
+        name: name
+      });
+
+      nextEvent();
+    }
   }
-
-  // Ctrl-D
-  if (e.ctrlKey && e.keyCode === 68) {
-    $('#event').hide();
-
-    $('#quest-lines').append('<li>You beat ' + currentEnemy.name +
-      ', a ' + currentEnemy.breed + '</li>.');
-
-    outStream.write({
-      uuid: uuid.v1(),
-      type: 'event',
-      enemy: currentEnemy,
-      name: name
-    });
-
-    next();
-  }
-
-  // $('#quest-lines').append($('<li>' + e.keyCode + '</li>'));
 });
 
 function handleMessage(message) {
@@ -113,12 +116,10 @@ function handleMessage(message) {
 
   seen[message.uuid] = true;
 
-  // $('#connection-lines').append($('<li>' + message.uuid + '</li>'));
-
   switch (message.type) {
     case 'peer':
       $('#connection-lines').append($('<li>' + message.name +
-        ' joins the Timecat-verse.</li>'));
+        ' joined the Timecat-verse.</li>'));
       break;
 
     case 'event':
@@ -134,16 +135,22 @@ function handleMessage(message) {
 
 var inStream = through2.obj(function (chunk, enc, callback) {
   handleMessage(chunk);
+
   callback();
 });
 
-swarm.on('peer', function (stream) {
-  stream
+swarm.on('peer', function (peerStream) {
+  endOfStream(peerStream, function () { // err
+    $('#connection-lines').append($('<li>Someone left the Timecat-verse.' +
+      '</li>'));
+  });
+
+  peerStream
     .pipe(ndjson.parse())
     .pipe(inStream);
 
-  outStream.pipe(stream);
+  outStream.pipe(peerStream);
   outStream.write({uuid: peerUuid, type: 'peer', name: name});
 });
 
-next();
+nextEvent();

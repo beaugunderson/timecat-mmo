@@ -16,6 +16,7 @@
     "cat-names": "^1.0.2",
     "debug": "^2.2.0",
     "electron-prebuilt": "^0.27.3",
+    "end-of-stream": "^1.1.0",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
     "mdns-swarm": "^5.1.0",
@@ -24,5 +25,13 @@
     "through2": "^2.0.0",
     "uuid": "^2.0.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beaugunderson/timecat-mmo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/beaugunderson/timecat-mmo/issues"
+  },
+  "homepage": "https://github.com/beaugunderson/timecat-mmo#readme"
 }
