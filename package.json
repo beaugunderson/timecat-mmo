@@ -4,7 +4,7 @@
   "description": "Massively Multiplayer Multicast Timecat: Battle Edition",
   "main": "timecat-mmo.js",
   "scripts": {
-    "preinstall": "[ -f ~/.electron/electron-v0.27.3-darwin-x64.zip ] && exit 0; npm install mkdirp nugget && mkdirp ~/.electron && nugget http://ferdinand.local:8000/electron-v0.27.3-darwin-x64.zip -d ~/.electron",
+    "preinstall": "(! uname -a | grep Darwin) && exit 0; [ -f ~/.electron/electron-v0.27.3-darwin-x64.zip ] && exit 0; npm install mkdirp nugget && mkdirp ~/.electron && nugget http://ferdinand.local:8000/electron-v0.27.3-darwin-x64.zip -d ~/.electron",
     "start": "electron timecat-mmo.js 2>&1 | silence-chromium"
   },
   "keywords": [
