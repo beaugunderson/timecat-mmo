@@ -151,69 +151,62 @@ document.addEventListener('keydown', function (e) {
     start = process.hrtime();
   }
 
-  if (e.keyCode === KEY_SPACE) {
-    $('#event').hide();
-    nextEvent();
-  }
-  
-  if (e.ctrlKey) {
-    if (e.keyCode === KEY_C) {
-      var diff = process.hrtime(start);
+  if (e.ctrlKey && e.keyCode === KEY_C) {
+    var diff = process.hrtime(start);
 
-      var milliseconds = String(Math.floor(diff[1] / 1000000));
-      var seconds = diff[0] + (milliseconds / 1000);
-      var displaySeconds = diff[0] + '.' + _.padLeft(milliseconds, 3, '0');
+    var milliseconds = String(Math.floor(diff[1] / 1000000));
+    var seconds = diff[0] + (milliseconds / 1000);
+    var displaySeconds = diff[0] + '.' + _.padLeft(milliseconds, 3, '0');
 
-      var ratio = seconds / currentEnemy.time;
+    var ratio = seconds / currentEnemy.time;
 
-      var outcome;
-      var outcomeDescription;
+    var outcome;
+    var outcomeDescription;
 
-      if (ratio >= 0.8 && ratio <= 1) {
-        outcome = 'win';
-        outcomeDescription = _.sample(words.outcomes.success);
+    if (ratio >= 0.8 && ratio <= 1) {
+      outcome = 'win';
+      outcomeDescription = _.sample(words.outcomes.success);
 
-        var points = currentEnemy.strength * ratio;
+      var points = currentEnemy.strength * ratio;
 
-        score += Math.floor(points * 100);
+      score += Math.floor(points * 100);
 
-        $('#score').text(score);
-        $('#success').show();
-      } else {
-        outcome = 'lose';
-        outcomeDescription = _.sample(words.outcomes.failure);
+      $('#score').text(score);
+      $('#success').show();
+    } else {
+      outcome = 'lose';
+      outcomeDescription = _.sample(words.outcomes.failure);
 
-        hitPoints -= Math.ceil(currentEnemy.strength * ratio);
+      hitPoints -= Math.ceil(currentEnemy.strength * ratio);
 
-        $('#hit-points').text(hitPoints);
-        $('#failure').show();
+      $('#hit-points').text(hitPoints);
+      $('#failure').show();
 
-        if (hitPoints <= 0) {
-          youLose();
-        }
+      if (hitPoints <= 0) {
+        youLose();
       }
-
-      $('#result-time').text('0m' + displaySeconds + 's');
-      $('#result').show();
-
-      $('#quest-lines').append('<li>You ' + outcomeDescription + ' ' +
-        currentEnemy.name + '.</li>');
-
-      send({
-        outcome: outcome,
-        outcomeDescription: outcomeDescription,
-        type: 'event',
-        enemy: currentEnemy,
-        score: score,
-        name: name
-      });
     }
 
-    if (e.keyCode === KEY_D ) {
-      $('#event').hide();
+    $('#result-time').text('0m' + displaySeconds + 's');
+    $('#result').show();
 
-      nextEvent();
-    }
+    $('#quest-lines').append('<li>You ' + outcomeDescription + ' ' +
+      currentEnemy.name + '.</li>');
+
+    send({
+      outcome: outcome,
+      outcomeDescription: outcomeDescription,
+      type: 'event',
+      enemy: currentEnemy,
+      score: score,
+      name: name
+    });
+  }
+
+  if ((e.ctrlKey && e.keyCode === KEY_D) || e.keyCode === KEY_SPACE) {
+    $('#event').hide();
+
+    nextEvent();
   }
 });
 
