@@ -77,11 +77,20 @@ p {
   border-right: 1px solid gray;
 }
 
-#connection-log {
+#leaderboard {
   position: absolute;
   left: 65%;
   top: 20%;
-  height: 80%;
+  height: 40%;
+  width: 35%;
+  border-bottom: 1px solid gray;
+}
+
+#connection-log {
+  position: absolute;
+  left: 65%;
+  top: 60%;
+  height: 40%;
   width: 35%;
 }
 
