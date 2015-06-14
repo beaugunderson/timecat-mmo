@@ -62,13 +62,13 @@ function s(number) {
 }
 
 function getLeader() {
-  getHighscores().first();
+  getHighscores()[0];
 }
 
 function getHighscores() {
   return _(players).sortBy(function (player) {
     return -player.score;
-  });
+  }).value();
 }
 
 function showEvent() {
@@ -78,11 +78,15 @@ function showEvent() {
   $('#count-s').text(s(currentEnemy.time));
   $('#success, #failure').hide();
   $('#event').show();
-  var highscores = "<ul>"
+}
+
+function updateLeaderboard() {
+  var highscores = ""
   getHighscores().forEach(function(player) {
+    if (!player.score) return
     highscores += "<li>" + player.name + ': ' + player.score + "</li>"
   })
-  $('#leaderboard').html(highscores + '</ul>')
+  $('#leaderboard-lines').html(highscores)
 }
 
 function fightCat() {
@@ -247,6 +251,8 @@ function handleMessage(message, trackingUuid, callback) {
 
       var potentialLeader = getLeader();
 
+      updateLeaderboard();
+      
       if (!potentialLeader) {
         break;
       }
