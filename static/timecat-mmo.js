@@ -199,7 +199,9 @@ document.addEventListener('keydown', function (e) {
       type: 'event',
       enemy: currentEnemy,
       score: score,
-      name: name
+      name: name,
+      seconds: displaySeconds,
+      time: currentEnemy.time
     });
   }
 
@@ -229,7 +231,7 @@ function handleMessage(message, trackingUuid, callback) {
     case 'event':
       $('#quest-lines').append($('<li>' + message.name +
         ' ' + message.outcomeDescription + ' ' + message.enemy.name +
-        '.</li>'));
+        '.' + '(' + message.seconds + '/' + message.time + ')</li>'));
 
       players[trackingUuid].score = message.score;
 
