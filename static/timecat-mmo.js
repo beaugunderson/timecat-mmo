@@ -244,8 +244,8 @@ function handleMessage(message, trackingUuid, callback) {
       if ((!leader && potentialLeader) ||
           leader.trackingUuid !== potentialLeader.trackingUuid) {
         if (potentialLeader.score === score) {
-          $('#quest-lines').append($('<li>You\'re tied with ' + leader.name +
-            '!</li>'));
+          $('#quest-lines').append($('<li>You\'re tied with ' +
+            potentialLeader.name + '!</li>'));
         } else if (potentialLeader.score > score) {
           leader = potentialLeader;
 
