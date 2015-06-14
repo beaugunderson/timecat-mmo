@@ -36,7 +36,6 @@ var peerUuid = uuid.v1();
 var score = 0;
 var seen = {};
 var start;
-var scores = [];
 
 // Prevent pinch zoom
 document.addEventListener('mousewheel', function (e) {
@@ -258,7 +257,7 @@ function handleMessage(message, trackingUuid, callback) {
       var potentialLeader = getLeader();
 
       updateLeaderboard();
-      
+
       if (!potentialLeader) {
         break;
       }
