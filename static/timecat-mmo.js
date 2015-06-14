@@ -36,6 +36,7 @@ var peerUuid = uuid.v1();
 var score = 0;
 var seen = {};
 var start;
+var scores = [];
 
 // Prevent pinch zoom
 document.addEventListener('mousewheel', function (e) {
@@ -61,9 +62,13 @@ function s(number) {
 }
 
 function getLeader() {
+  getHighscores().first();
+}
+
+function getHighscores() {
   return _(players).sortBy(function (player) {
     return -player.score;
-  }).first();
+  });
 }
 
 function showEvent() {
@@ -73,6 +78,11 @@ function showEvent() {
   $('#count-s').text(s(currentEnemy.time));
   $('#success, #failure').hide();
   $('#event').show();
+  var highscores = "<ul>"
+  getHighscores().forEach(function(player) {
+    highscores += "<li>" + player.name + ': ' + player.score + "</li>"
+  })
+  $('#leaderboard').html(highscores + '</ul>')
 }
 
 function fightCat() {
