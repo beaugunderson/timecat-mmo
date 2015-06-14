@@ -60,8 +60,8 @@ function s(number) {
 }
 
 function getLeader() {
-  return _(players).sort(function (player) {
-    return player.score;
+  return _(players).sortBy(function (player) {
+    return -player.score;
   }).first();
 }
 
@@ -232,6 +232,8 @@ function handleMessage(message, trackingUuid, callback) {
         ' ' + message.outcomeDescription + ' ' + message.enemy.name +
         '.</li>'));
 
+      players[trackingUuid].score = message.score;
+
       var potentialLeader = getLeader();
 
       if (!potentialLeader) {
@@ -240,12 +242,12 @@ function handleMessage(message, trackingUuid, callback) {
 
       if ((!leader && potentialLeader) ||
           leader.trackingUuid !== potentialLeader.trackingUuid) {
-        leader = potentialLeader;
-
         if (leader.score === score) {
           $('#quest-lines').append($('<li>You\'re tied with ' + leader.name +
             '!</li>'));
         } else if (leader.score > score) {
+          leader = potentialLeader;
+
           $('#quest-lines').append($('<li>' + leader.name + ' is the new ' +
             'leader with ' + leader.score + ' points!</li>'));
         } else {
