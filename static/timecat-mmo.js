@@ -241,10 +241,10 @@ function handleMessage(message, trackingUuid, callback) {
 
       if ((!leader && potentialLeader) ||
           leader.trackingUuid !== potentialLeader.trackingUuid) {
-        if (leader.score === score) {
+        if (potentialLeader.score === score) {
           $('#quest-lines').append($('<li>You\'re tied with ' + leader.name +
             '!</li>'));
-        } else if (leader.score > score) {
+        } else if (potentialLeader.score > score) {
           leader = potentialLeader;
 
           $('#quest-lines').append($('<li>' + leader.name + ' is the new ' +
