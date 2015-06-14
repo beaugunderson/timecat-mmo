@@ -85,6 +85,19 @@ p {
   width: 35%;
 }
 
+#help {
+  position: absolute;
+  z-index: 1000;
+  left: 20%;
+  top: 15%;
+  height: 30%;
+  width: 60%;
+  /* display: none; */
+  background-color: #333;
+  border: 3px double gray;
+  padding: 10px;
+}
+
 #event {
   position: absolute;
   z-index: 1000;

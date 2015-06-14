@@ -43,6 +43,10 @@ document.addEventListener('mousewheel', function (e) {
   }
 });
 
+$('#close-help').click(function () {
+  $('#help').hide();
+});
+
 function s(number) {
   if (number === 0) {
     return 's';
