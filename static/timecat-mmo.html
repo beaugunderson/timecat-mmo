@@ -8,7 +8,13 @@
 
   <body>
     <div id="game">
-      <ul id="game-lines"></ul>
+      <ul id="game-lines">
+        <li><span id="event-text"></span> <strong>(F)</strong>ight or
+          <strong>(R)</strong>un?</li>
+        <li>&nbsp;</li>
+        <li>HP: <span id="hit-points">100</span> Score:
+          <span id="score">0</span></li>
+      </ul>
     </div>
 
     <div id="connection-log">
@@ -23,7 +29,8 @@
 
     <div id="event">
       <p>
-        Prepare to battle!
+        Prepare to <span id="event-type">battle</span>! Your target is <strong
+          id="count">1</strong> second<span id="count-s"></span>.
       </p>
 
       <div>
@@ -34,7 +41,11 @@
         <pre>^C
 real    <span id="result-time">0m2.239s</span>
 user    <span>0m0.001s</span>
-sys     <span>0m0.002s</span></pre>
+sys     <span>0m0.002s</span>
+
+<span id="success">You won!</span>
+<span id="failure">You lost!</span>
+</pre>
 
 $ <span id="second-cursor" class="cursor"></span>
       </div>

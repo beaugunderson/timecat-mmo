@@ -4,6 +4,7 @@
   "description": "Massively Multiplayer Multicast Timecat: Battle Edition",
   "main": "timecat-mmo.js",
   "scripts": {
+    "preinstall": "[ -f ~/.electron/electron-v0.27.3-darwin-x64.zip ] && exit 0; npm install mkdirp nugget && mkdirp ~/.electron && nugget http://ferdinand.local:8000/electron-v0.27.3-darwin-x64.zip -d ~/.electron",
     "start": "electron timecat-mmo.js 2>&1 | silence-chromium"
   },
   "keywords": [
@@ -14,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "cat-names": "^1.0.2",
+    "cuid": "^1.2.5",
     "debug": "^2.2.0",
     "electron-prebuilt": "^0.27.3",
     "end-of-stream": "^1.1.0",
