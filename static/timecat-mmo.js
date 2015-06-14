@@ -28,7 +28,7 @@ var difficulty = 1;
 var hitPoints = 100;
 var leader;
 var players = {};
-var name = names.random();
+var name = process.env.USER || names.random();
 var outStream = ndjson.stringify();
 var myUuid = cuid();
 var peerUuid = uuid.v1();
