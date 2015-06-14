@@ -243,9 +243,15 @@ function handleMessage(message, trackingUuid, callback) {
       break;
 
     case 'event':
+      var times = '';
+
+      if (message.seconds) {
+        times = ' (' + message.seconds + '/' + message.time + ')';
+      }
+
       $('#quest-lines').append($('<li>' + message.name +
         ' ' + message.outcomeDescription + ' ' + message.enemy.name +
-        '.' + '(' + message.seconds + '/' + message.time + ')</li>'));
+        '.' + times + '</li>'));
 
       players[trackingUuid].score = message.score;
 
