@@ -22,6 +22,7 @@ var KEY_D = 68;
 var KEY_ENTER = 13;
 var KEY_F = 70;
 var KEY_R = 82;
+var KEY_SPACE = 32;
 
 var currentEnemy;
 var difficulty = 1;
@@ -150,6 +151,11 @@ document.addEventListener('keydown', function (e) {
     start = process.hrtime();
   }
 
+  if (e.keyCode === KEY_SPACE) {
+    $('#event').hide();
+    nextEvent();
+  }
+  
   if (e.ctrlKey) {
     if (e.keyCode === KEY_C) {
       var diff = process.hrtime(start);
@@ -203,7 +209,7 @@ document.addEventListener('keydown', function (e) {
       });
     }
 
-    if (e.keyCode === KEY_D) {
+    if (e.keyCode === KEY_D ) {
       $('#event').hide();
 
       nextEvent();
